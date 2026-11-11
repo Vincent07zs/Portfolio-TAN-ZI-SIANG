@@ -6,7 +6,7 @@ Plain HTML / CSS / vanilla JS. No build step, no dependencies. Works on GitHub P
 index.html
 css/style.css
 js/script.js
-assets/images/  profile.jpg · profile-cutout.webp · profile-reveal.webp
+assets/images/  hero-portrait.webp · hero-reveal.webp · profile.jpg
 assets/icons/
 ```
 
@@ -19,5 +19,5 @@ assets/icons/
 ## Editing
 - **Projects:** open `js/script.js` and add objects to the `PROJECTS` array (title, description, tools, image, url). Placeholders fill the remaining slots (minimum 4 cards). Put cover images in `assets/images/`.
 - **WhatsApp:** hidden by default. In `js/script.js` set `CONFIG.whatsapp.enabled` to `true` to show a WhatsApp button. The number is only used in the link and never printed on the page.
-- **Portrait:** `profile-cutout.webp` is the hero image (background removed) and `profile-reveal.webp` is the same photo in a lime duotone, shown by the brush effect. If you replace the photo, keep both files the same size and aspect ratio (1254×1104), or update `aspect-ratio` in `.portrait` in `css/style.css`.
+- **Hero images:** `hero-portrait.webp` (default) and `hero-reveal.webp` (revealed by the brush) must stay the same pixel size and aspect ratio (1024×1536). `profile.jpg` is used in the About section.
 - **Colours:** CSS variables at the top of `css/style.css`.

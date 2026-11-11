@@ -12,7 +12,6 @@
 </head>
 <body>
 <header class="nav">
-  <a class="logo" href="#home">VINCENT</a>
   <button class="burger" aria-label="Toggle menu" aria-expanded="false" aria-controls="menu"><i></i><i></i></button>
   <nav id="menu">
     <a href="#home">01 Home</a><a href="#about">02 About</a><a href="#skills">03 Skills</a>
@@ -21,20 +20,18 @@
 </header>
 
 <main>
-<!-- 01 HOME -->
+<!-- 01 HOME — original hero structure -->
 <section class="hero" id="home">
-  <canvas id="bg"></canvas>
-  <div class="portrait">
-    <img id="base" alt="Tan Zi Siang in a black suit" src="assets/images/profile-cutout.webp" width="1254" height="1104" fetchpriority="high">
-    <img id="ghost" alt="" aria-hidden="true" src="assets/images/profile-reveal.webp">
-    <canvas id="reveal"></canvas>
-  </div>
-  <div class="mark">
-    <h1><span>Tan</span><span>Zi Siang</span></h1>
-    <p><b>“Vincent”</b> — Photographer | Videographer | Content Creator | Mobile Application Designer | Web Developer</p>
-  </div>
-  <div class="card"><span class="lbl"><i></i>Penang, Malaysia</span><p>Interactive Multimedia Technology student bridging technology and visual storytelling.</p></div>
-  <div class="hcta"><a class="btn" href="#contact">Let's Talk</a><a class="scroll" href="#about">Scroll <i></i></a></div>
+<canvas id="bg"></canvas>
+<div class="portrait">
+<img id="base" alt="Tan Zi Siang" src="assets/images/hero-portrait.webp">
+<img id="ghost" alt="" aria-hidden="true" src="assets/images/hero-reveal.webp">
+<canvas id="reveal"></canvas>
+</div>
+<div class="mark"><h1>Tan<br>Zi Siang</h1><p><b>“Vincent”</b> — Photographer | Videographer | Content Creator | Mobile Application Designer | Web Developer</p></div>
+<a class="cta" href="#contact">Let's Talk</a>
+<div class="card"><span class="lbl"><i></i>Penang, Malaysia</span><p>Interactive Multimedia Technology student bridging technology and visual storytelling.</p></div>
+<a class="scroll" href="#about">Scroll <i></i></a>
 </section>
 
 <!-- 02 ABOUT -->
