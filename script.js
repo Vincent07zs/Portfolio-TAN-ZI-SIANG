@@ -116,14 +116,6 @@ burger.addEventListener('click',()=>setMenu(!menu.classList.contains('open')));
 menu.addEventListener('click',e=>{if(e.target.closest('a'))setMenu(false)});
 addEventListener('keydown',e=>{if(e.key==='Escape')setMenu(false)});
 addEventListener('resize',()=>{if(innerWidth>768)setMenu(false)});
-
-// Wordmark fit: never larger than the original clamp(); shrinks only as far as needed to keep the widest line clear of the portrait.
-const mk=d.querySelector('.mark h1'),por=d.querySelector('.portrait');
-function fit(){mk.style.fontSize='';const base=parseFloat(getComputedStyle(mk).fontSize),left=mk.getBoundingClientRect().left,
- rg=d.createRange();rg.selectNodeContents(mk);const wd=Math.max(...[...rg.getClientRects()].map(r=>r.width));if(!wd)return;
- const gap=por.getBoundingClientRect().left-left-28,a=base*Math.min(1,gap/wd),b=base*Math.min(1,(innerWidth-2*left-8)/wd);
- mk.style.fontSize=(a>=36?a:b)+'px'}
-fit();addEventListener('resize',fit);if(d.fonts&&d.fonts.ready)d.fonts.ready.then(fit);addEventListener('load',fit);
 const onScroll=()=>nav.classList.toggle('solid',scrollY>40);onScroll();addEventListener('scroll',onScroll,{passive:true});
 
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12,rootMargin:'0px 0px -6% 0px'});
