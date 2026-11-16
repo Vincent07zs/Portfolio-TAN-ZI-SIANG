@@ -6,6 +6,133 @@
   <title>Tan Zi Siang — Portfolio</title>
   <meta name="description" content="Tan Zi Siang (Vincent) — Photographer, Videographer, Content Creator, Mobile Application Designer & Web Developer based in Penang, Malaysia.">
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* Interactive Hero overrides */
+    .hero-interactive {
+      position: relative;
+      isolation: isolate;
+      height: calc(100svh - var(--header-h));
+      min-height: 560px;
+      overflow: hidden;
+      background: #F4EFE3;
+      touch-action: none;
+      color: #1d1a12;
+    }
+    .hero-interactive #bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    .hero-interactive .portrait {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      aspect-ratio: 1 / 1.15;
+      width: min(52vh, 420px);
+    }
+    .hero-interactive .portrait img,
+    .hero-interactive .portrait canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      pointer-events: none;
+      user-select: none;
+      -webkit-user-drag: none;
+      border-radius: 18px;
+      object-fit: cover;
+      object-position: center top;
+    }
+    .hero-interactive #ghost {
+      opacity: 0.03;
+      -webkit-mask-image: radial-gradient(ellipse 40% 35% at 50% 35%, #000 30%, transparent 100%);
+      mask-image: radial-gradient(ellipse 40% 35% at 50% 35%, #000 30%, transparent 100%);
+    }
+    .hero-interactive .mark {
+      position: absolute;
+      top: clamp(24px, 4vw, 48px);
+      left: clamp(20px, 4vw, 48px);
+      color: #1d1a12;
+      pointer-events: none;
+      z-index: 5;
+    }
+    .hero-interactive .mark h1 {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: clamp(48px, 9vw, 110px);
+      line-height: 0.82;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+    }
+    .hero-interactive .mark p {
+      margin-top: 14px;
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 1.45;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #6b6350;
+    }
+    .hero-interactive .cta {
+      position: absolute;
+      top: clamp(24px, 4vw, 48px);
+      right: clamp(20px, 4vw, 48px);
+      padding: 12px 24px;
+      border-radius: 999px;
+      background: #B4E600;
+      color: #14130E;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      text-decoration: none;
+      transition: transform 0.25s;
+      z-index: 5;
+    }
+    .hero-interactive .cta:hover { transform: scale(1.05); }
+    .hero-interactive .card {
+      position: absolute;
+      left: clamp(20px, 4vw, 48px);
+      bottom: clamp(20px, 4vw, 44px);
+      max-width: 260px;
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: rgba(244, 239, 227, 0.9);
+      border: 1px solid rgba(59, 51, 32, 0.12);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      z-index: 5;
+    }
+    .hero-interactive .lbl {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+    .hero-interactive .lbl i {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #B4E600;
+    }
+    .hero-interactive .card p {
+      margin-top: 8px;
+      font-size: 13px;
+      line-height: 1.45;
+      color: #4a4331;
+    }
+    @media (max-width: 768px) {
+      .hero-interactive .portrait { width: min(58vh, 78vw); }
+      .hero-interactive .card { max-width: 200px; }
+      .hero-interactive .mark h1 { font-size: clamp(42px, 12vw, 72px); }
+    }
+  </style>
 </head>
 <body>
   <header class="site-header">
@@ -24,38 +151,21 @@
   </header>
 
   <main>
-    <section class="hero">
-      <div class="hero-bg-lines" aria-hidden="true">
-        <svg viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-          <path d="M-50 120 Q150 80 300 140 T600 100 T900 160 T1250 90" fill="none" stroke="#D8D0BF" stroke-width="1.2"/>
-          <path d="M-50 280 Q200 220 400 300 T700 250 T1000 320 T1250 270" fill="none" stroke="#D8D0BF" stroke-width="1.2"/>
-          <path d="M-50 480 Q180 420 350 500 T650 450 T950 530 T1250 480" fill="none" stroke="#D8D0BF" stroke-width="1.1"/>
-          <path d="M-50 650 Q220 590 420 670 T720 620 T1020 700 T1250 640" fill="none" stroke="#D8D0BF" stroke-width="1.1"/>
-          <path d="M100 -20 Q180 150 120 320 T200 600 T80 850" fill="none" stroke="#D8D0BF" stroke-width="1"/>
-          <path d="M1100 -30 Q1020 180 1080 360 T1000 640 T1120 880" fill="none" stroke="#D8D0BF" stroke-width="1"/>
-        </svg>
+    <section class="hero-interactive">
+      <canvas id="bg"></canvas>
+      <div class="portrait">
+        <img id="base" alt="Portrait" src="portrait.jpg">
+        <img id="ghost" alt="" src="portrait.jpg" aria-hidden="true">
+        <canvas id="reveal"></canvas>
       </div>
-
-      <div class="hero-copy">
-        <div class="hero-mark">
-          <h1>Tan<br>Zi Siang</h1>
-          <p>Photographer · Videographer · Content Creator<br>Mobile App Designer · Web Developer</p>
-        </div>
-        <p class="hero-intro">Interactive Multimedia Technology student bridging tech and visual storytelling. Based in Penang, Malaysia.</p>
-        <div class="hero-actions">
-          <a href="contact.html" class="btn btn-primary">Let's Talk</a>
-          <a href="about.html" class="btn btn-ghost">About Me</a>
-        </div>
-        <div class="availability">
-          <span class="dot"></span>
-          <p><strong>Available for new work</strong> Design-led digital experiences &amp; content — booking from January.</p>
-        </div>
+      <div class="mark">
+        <h1>Tan<br>Zi Siang</h1>
+        <p>Photographer · Videographer · Content Creator<br>Mobile App Designer · Web Developer</p>
       </div>
-
-      <div class="hero-portrait">
-        <div class="portrait-frame">
-          <img src="portrait.jpg" alt="Tan Zi Siang — professional portrait" width="1254" height="1254">
-        </div>
+      <a class="cta" href="contact.html">Let's Talk</a>
+      <div class="card">
+        <span class="lbl"><i></i>Available for new work</span>
+        <p>Design-led digital experiences &amp; content — booking from January.</p>
       </div>
     </section>
   </main>
@@ -70,5 +180,263 @@
   </footer>
 
   <script src="main.js"></script>
+  <script>
+  (() => {
+    const $ = s => document.querySelector(s);
+    const rnd = (a, b) => a + Math.random() * (b - a);
+    const ss = x => x * x * (3 - 2 * x);
+    const hero = $('.hero-interactive');
+    const por = $('.portrait');
+    const ghost = $('#ghost');
+    const rv = $('#reveal');
+    const bg = $('#bg');
+    const rctx = rv.getContext('2d');
+    const bctx = bg.getContext('2d');
+    const off = document.createElement('canvas');
+    const octx = off.getContext('2d');
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const touch = matchMedia('(hover: none)').matches;
+    const LIFE = 1350;
+    let vw, vh, dpr, rect, W, dabs = [], last = null, lastDab = 0, inside = false, mouseIn = false, lastReal = -1e9, cur = {x:0,y:0}, tBg = 0, prevT = performance.now(), acc = 0, wasAlive = false, intro = null;
+
+    const wet = (d, now) => {
+      const a = (now - d.t) / LIFE;
+      if (a >= 1) return null;
+      const k = a < .26 ? 0 : ss((a - .26) / .74);
+      return { w: 1 - k, s: 1 - .42 * k };
+    };
+
+    function addDab(x, y) {
+      const now = performance.now();
+      dabs.push({
+        x: x + rnd(-.014, .014) * W,
+        y: y + rnd(-.01, .01) * W,
+        rx: rnd(.17, .30) * W,
+        ry: rnd(.021, .047) * W,
+        rot: rnd(-.22, .22),
+        p: [rnd(0, 6.28), rnd(0, 6.28), rnd(0, 6.28)],
+        t: now
+      });
+      if (dabs.length > 56) dabs.shift();
+      lastDab = now;
+    }
+
+    function shape(c, d, s, now) {
+      const n = 24, P = [], T = now * .0006, co = Math.cos(d.rot), si = Math.sin(d.rot);
+      for (let i = 0; i < n; i++) {
+        const a = i / n * 6.2832;
+        const r = 1 + .155 * Math.sin(2 * a + d.p[0] + T) + .085 * Math.sin(3 * a + d.p[1] - T * .8) + .04 * Math.sin(5 * a + d.p[2] + T * .6);
+        const x = Math.cos(a) * d.rx * s * r;
+        const y = Math.sin(a) * d.ry * s * r;
+        P.push([d.x + x * co - y * si, d.y + x * si + y * co]);
+      }
+      c.beginPath();
+      c.moveTo((P[n - 1][0] + P[0][0]) / 2, (P[n - 1][1] + P[0][1]) / 2);
+      for (let i = 0; i < n; i++) {
+        const p = P[i], q = P[(i + 1) % n];
+        c.quadraticCurveTo(p[0], p[1], (p[0] + q[0]) / 2, (p[1] + q[1]) / 2);
+      }
+      c.closePath();
+    }
+
+    function drawReveal() {
+      const now = performance.now();
+      let any = false;
+      rctx.setTransform(1, 0, 0, 1, 0, 0);
+      rctx.globalCompositeOperation = 'source-over';
+      rctx.globalAlpha = 1;
+      rctx.clearRect(0, 0, rv.width, rv.height);
+      rctx.setTransform(dpr, 0, 0, dpr, -rect.left * dpr, -rect.top * dpr);
+      rctx.fillStyle = '#000';
+      for (const d of dabs) {
+        const q = wet(d, now);
+        if (!q) continue;
+        any = true;
+        rctx.globalAlpha = q.w;
+        shape(rctx, d, q.s, now);
+        rctx.fill();
+      }
+      if (any && ghost.naturalWidth) {
+        rctx.setTransform(1, 0, 0, 1, 0, 0);
+        rctx.globalAlpha = 1;
+        rctx.globalCompositeOperation = 'source-in';
+        rctx.drawImage(ghost, 0, 0, rv.width, rv.height);
+        rctx.globalCompositeOperation = 'source-over';
+      }
+    }
+
+    function strongest(now) {
+      let b = null;
+      for (const d of dabs) {
+        const q = wet(d, now);
+        if (q && (!b || q.w >= b.w)) b = { x: d.x, y: d.y, w: q.w };
+      }
+      return b;
+    }
+
+    const CL = [
+      { x: .16, y: .28, n: 8, s: 1, ph: 0 },
+      { x: .86, y: .24, n: 8, s: .95, ph: 2 },
+      { x: .62, y: .88, n: 8, s: 1.1, ph: 4 }
+    ];
+    const RATE = [.18, -.13, .11], HK = [2, 3, 4], HW = [.5, .3, .2];
+
+    function paintBg() {
+      const now = performance.now(), m = Math.min(vw, vh), R = .23 * m, b = strongest(now);
+      octx.setTransform(1, 0, 0, 1, 0, 0);
+      octx.clearRect(0, 0, off.width, off.height);
+      octx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      octx.fillStyle = '#3B3320';
+      for (const d of dabs) {
+        const q = wet(d, now);
+        if (!q) continue;
+        octx.globalAlpha = q.w;
+        shape(octx, d, q.s, now);
+        octx.fill();
+      }
+      bctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      bctx.globalAlpha = 1;
+      bctx.fillStyle = '#F4EFE3';
+      bctx.fillRect(0, 0, vw, vh);
+      bctx.globalAlpha = .15;
+      bctx.drawImage(off, 0, 0, vw, vh);
+      bctx.globalAlpha = 1;
+      const P = [new Path2D(), new Path2D(), new Path2D()];
+      for (const c of CL) {
+        const cx = (c.x + Math.sin(tBg * .05 + c.ph) * .03) * vw;
+        const cy = (c.y + Math.cos(tBg * .04 + c.ph) * .03) * vh;
+        const sp = .055 * m * c.s;
+        for (let i = 0; i < c.n; i++) {
+          const r0 = .05 * m + i * sp, amp = Math.min(.4 * sp, .3 * r0), N = 90;
+          let px = 0, py = 0;
+          for (let j = 0; j <= N; j++) {
+            const a = j / N * 6.2832;
+            let r = r0;
+            for (let k = 0; k < 3; k++) r += amp * HW[k] * Math.sin(HK[k] * a + tBg * RATE[k] + c.ph * (k + 1) + i * .2 * (k + 1));
+            let x = cx + Math.cos(a) * r, y = cy + Math.sin(a) * r, mode = 0;
+            if (b) {
+              const dx = x - b.x, dy = y - b.y, d = Math.hypot(dx, dy) || 1;
+              if (d < R) {
+                const f = 1 - d / R, push = 22 * f * f * b.w;
+                x += dx / d * push;
+                y += dy / d * push;
+                if (b.w > .04) mode = (d < .3 * R && b.w > .25) ? 2 : 1;
+              }
+            }
+            if (j) { P[mode].moveTo(px, py); P[mode].lineTo(x, y); }
+            px = x; py = y;
+          }
+        }
+      }
+      bctx.lineWidth = 1.25;
+      bctx.lineCap = 'round';
+      bctx.lineJoin = 'round';
+      bctx.strokeStyle = '#D8D0BF';
+      bctx.stroke(P[0]);
+      bctx.strokeStyle = 'rgba(252,250,243,.95)';
+      bctx.stroke(P[1]);
+      bctx.strokeStyle = '#B4E600';
+      bctx.stroke(P[2]);
+    }
+
+    function sync() { drawReveal(); paintBg(); }
+
+    function brush(x, y) {
+      const step = .028 * W;
+      if (!last) {
+        last = { x, y };
+        addDab(x, y);
+      } else {
+        const dx = x - last.x, dy = y - last.y, dist = Math.hypot(dx, dy);
+        if (dist >= step) {
+          const n = Math.min(14, Math.floor(dist / step));
+          for (let i = 1; i <= n; i++) {
+            const px = last.x + dx / dist * step * i, py = last.y + dy / dist * step * i;
+            addDab(px, py);
+            if (Math.random() < .5) addDab(px, py);
+          }
+          last = { x: last.x + dx / dist * step * n, y: last.y + dy / dist * step * n };
+        }
+      }
+      cur = { x, y };
+      inside = true;
+      sync();
+    }
+
+    function resize() {
+      dpr = Math.min(devicePixelRatio || 1, 2);
+      vw = hero.clientWidth;
+      vh = hero.clientHeight;
+      bg.width = off.width = Math.round(vw * dpr);
+      bg.height = off.height = Math.round(vh * dpr);
+      rect = por.getBoundingClientRect();
+      W = rect.width;
+      rv.width = Math.round(rect.width * dpr);
+      rv.height = Math.round(rect.height * dpr);
+      sync();
+    }
+
+    function real(e) {
+      lastReal = performance.now();
+      mouseIn = true;
+      brush(e.clientX, e.clientY);
+    }
+
+    addEventListener('pointermove', real, { passive: true });
+    addEventListener('pointerdown', real, { passive: true });
+    const up = e => { if (e.pointerType === 'touch') { mouseIn = inside = false; last = null; } };
+    addEventListener('pointerup', up);
+    addEventListener('pointercancel', up);
+    document.documentElement.addEventListener('mouseleave', () => { mouseIn = inside = false; last = null; });
+    addEventListener('resize', resize);
+    ghost.addEventListener('load', drawReveal);
+
+    function tick(now) {
+      requestAnimationFrame(tick);
+      const dt = Math.min((now - prevT) / 1000, .1);
+      prevT = now;
+      if (intro) {
+        const p = (now - intro) / 2400;
+        if (p >= 1) { intro = null; last = null; inside = mouseIn; }
+        else brush(rect.left + W * (.08 + .84 * ss(p)), rect.top + rect.height * (.36 + .05 * Math.sin(p * 6.28)));
+      } else if (touch && now - lastReal > 2000) {
+        brush(rect.left + W * (.5 + .34 * Math.sin(now * .00045)), rect.top + rect.height * (.36 + .22 * Math.sin(now * .0007 + 1.3)));
+      }
+      if (inside && now - lastDab > 130) addDab(cur.x, cur.y);
+      dabs = dabs.filter(d => wet(d, now));
+      const alive = dabs.length > 0;
+      if (alive || wasAlive) drawReveal();
+      acc += dt;
+      if (acc >= 1 / 30) {
+        if (!reduce) tBg += acc;
+        if (!reduce || alive || wasAlive) paintBg();
+        acc = 0;
+      }
+      wasAlive = alive;
+    }
+
+    function flicker() {
+      const burst = 1 + Math.floor(Math.random() * 3);
+      let i = 0;
+      (function f() {
+        if (i++ >= burst) {
+          ghost.style.opacity = .03;
+          setTimeout(flicker, rnd(2200, 6400));
+          return;
+        }
+        ghost.style.opacity = rnd(.07, .12);
+        setTimeout(() => {
+          ghost.style.opacity = .03;
+          setTimeout(f, rnd(50, 150));
+        }, 80);
+      })();
+    }
+    if (!reduce) setTimeout(flicker, rnd(2200, 6400));
+
+    resize();
+    requestAnimationFrame(tick);
+    setTimeout(() => { intro = performance.now(); }, 900);
+  })();
+  </script>
 </body>
 </html>
