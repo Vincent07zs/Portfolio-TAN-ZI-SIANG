@@ -49,9 +49,54 @@ html,body{height:100%;background:#F4EFE3;overflow:hidden}
 .mute-btn.muted svg.icon-on{display:none}
 .mute-btn:not(.muted) svg.icon-off{display:none}
 
+
+/* ===== Intro Loader ===== */
+.loader{
+  position:fixed;inset:0;z-index:9999;
+  background:#0a0c12;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  transition:opacity .7s ease, visibility .7s;
+}
+.loader.hide{
+  opacity:0;visibility:hidden;pointer-events:none;
+}
+.loader-logo{
+  width:min(140px,28vw);height:auto;
+  opacity:0;transform:scale(.86);
+  animation:logoIn .9s cubic-bezier(.22,1,.36,1) .15s forwards;
+}
+.loader-name{
+  margin-top:28px;
+  font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-weight:800;font-size:13px;letter-spacing:.28em;
+  text-transform:uppercase;color:rgba(255,255,255,.9);
+  opacity:0;transform:translateY(10px);
+  animation:nameIn .7s cubic-bezier(.22,1,.36,1) .55s forwards;
+}
+.loader-bar{
+  margin-top:36px;width:120px;height:2px;
+  background:rgba(255,255,255,.12);border-radius:2px;overflow:hidden;
+  opacity:0;animation:nameIn .5s ease .7s forwards;
+}
+.loader-bar i{
+  display:block;height:100%;width:0;background:linear-gradient(90deg,#4da3ff,#a8e0ff);
+  border-radius:2px;
+  animation:barFill 1.6s cubic-bezier(.22,1,.36,1) .85s forwards;
+}
+@keyframes logoIn{to{opacity:1;transform:scale(1)}}
+@keyframes nameIn{to{opacity:1;transform:none}}
+@keyframes barFill{to{width:100%}}
+
 </style>
 </head>
 <body>
+
+<div class="loader" id="loader">
+  <img class="loader-logo" src="logo-zs.png" alt="ZS">
+  <div class="loader-name">Tan Zi Siang</div>
+  <div class="loader-bar"><i></i></div>
+</div>
+
 <section class="hero">
 <canvas id="bg"></canvas>
 
@@ -60,9 +105,9 @@ html,body{height:100%;background:#F4EFE3;overflow:hidden}
 
 <div class="portrait">
   <!-- Fully visible base: black turtleneck -->
-  <img id="base" alt="Tan Zi Siang" src="base-portrait.png">
+  <img id="base" alt="Tan Zi Siang" src="base-portrait-cut.png">
   <!-- Hidden source for brush reveal: F1 driver -->
-  <img id="ghost" alt="" src="f1-driver.png" aria-hidden="true">
+  <img id="ghost" alt="" src="f1-driver-cut.png" aria-hidden="true">
   <canvas id="reveal"></canvas>
 </div>
 
@@ -199,6 +244,23 @@ fit();addEventListener('resize',fit);addEventListener('load',fit);if(document.fo
       btn.classList.add('muted');
     }
   });
+})();
+</script>
+
+
+<script>
+(()=>{
+  const loader = document.getElementById('loader');
+  if(!loader) return;
+  // hide after animation (~2.4s) or when page is ready
+  const hide = () => {
+    loader.classList.add('hide');
+    setTimeout(()=>loader.remove(), 800);
+  };
+  // wait for logo + bar animation
+  setTimeout(hide, 2400);
+  // also hide early if user interacts
+  window.addEventListener('pointerdown', hide, {once:true});
 })();
 </script>
 
