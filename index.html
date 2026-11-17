@@ -13,7 +13,8 @@ html,body{height:100%;background:#F4EFE3;overflow:hidden}
 .portrait{position:absolute;bottom:0;left:50%;transform:translateX(-50%);aspect-ratio:1024/1536;width:min(64vh,92vw)}
 .portrait img,.portrait canvas{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none;user-select:none;-webkit-user-drag:none}
 .portrait img{object-fit:cover;object-position:center top}
-#base{opacity:.022;-webkit-mask-image:radial-gradient(ellipse 27% 21% at 49% 34%,#000 35%,transparent 100%);mask-image:radial-gradient(ellipse 27% 21% at 49% 34%,#000 35%,transparent 100%)}
+#base{opacity:.028;-webkit-mask-image:radial-gradient(ellipse 30% 24% at 50% 32%,#000 30%,transparent 100%);mask-image:radial-gradient(ellipse 30% 24% at 50% 32%,#000 30%,transparent 100%)}
+#ghost{opacity:0;visibility:hidden;position:absolute;width:0;height:0;overflow:hidden}
 .mark{position:absolute;left:0;right:0;top:clamp(56px,9vh,110px);text-align:center;color:#171916;pointer-events:none;z-index:5}
 .mark h1{font-weight:900;font-size:clamp(56px,10vw,152px);line-height:.82;letter-spacing:-.01em;white-space:nowrap;display:inline-block;text-transform:uppercase;font-family:"HelveticaNeue-CondensedBlack","HelveticaNeue-CondensedBold","AvenirNextCondensed-Heavy","Arial Narrow",Impact,sans-serif}
 .mark br{display:none}
@@ -25,7 +26,6 @@ html,body{height:100%;background:#F4EFE3;overflow:hidden}
 .lbl i{width:8px;height:8px;border-radius:50%;background:#B4E600}
 .card p{margin-top:8px;font-size:13px;line-height:1.45;color:#4a4331}
 
-/* Fixed top-right navigation (always present) */
 .top-nav{
   position:absolute;
   top:clamp(20px,3.4vw,44px);
@@ -63,11 +63,13 @@ html,body{height:100%;background:#F4EFE3;overflow:hidden}
 <div class="mark"><h1>Tan <br>Zi Siang</h1></div>
 
 <div class="portrait">
-  <img id="base" alt="Portrait" src="portrait.jpg">
+  <!-- Base: you in black turtleneck (almost invisible) -->
+  <img id="base" alt="Portrait" src="base-portrait.png">
+  <!-- Ghost: F1 driver — this is what gets brushed/revealed -->
+  <img id="ghost" alt="" src="f1-driver.png" aria-hidden="true">
   <canvas id="reveal"></canvas>
 </div>
 
-<!-- Top-right navigation (fixed position) -->
 <nav class="top-nav">
   <a href="about.html">About</a>
   <a href="skills.html">Skills</a>
@@ -85,7 +87,7 @@ html,body{height:100%;background:#F4EFE3;overflow:hidden}
 <script>
 (()=>{
 const $=s=>document.querySelector(s),rnd=(a,b)=>a+Math.random()*(b-a),ss=x=>x*x*(3-2*x);
-const hero=$('.hero'),por=$('.portrait'),ghost=$('#base'),rv=$('#reveal'),bg=$('#bg');
+const hero=$('.hero'),por=$('.portrait'),ghost=$('#ghost'),rv=$('#reveal'),bg=$('#bg');
 const rctx=rv.getContext('2d'),bctx=bg.getContext('2d'),off=document.createElement('canvas'),octx=off.getContext('2d');
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches,touch=matchMedia('(hover: none)').matches;
 const LIFE=1350;
@@ -161,8 +163,9 @@ function tick(now){requestAnimationFrame(tick);const dt=Math.min((now-prevT)/100
  wasAlive=alive}
 
 function flicker(){const burst=1+Math.floor(Math.random()*3);let i=0;
- (function f(){if(i++>=burst){ghost.style.opacity=.022;setTimeout(flicker,rnd(2200,6400));return}
-  ghost.style.opacity=rnd(.07,.12);setTimeout(()=>{ghost.style.opacity=.022;setTimeout(f,rnd(50,150))},80)})()}
+ const baseEl=$('#base');
+ (function f(){if(i++>=burst){baseEl.style.opacity=.028;setTimeout(flicker,rnd(2200,6400));return}
+  baseEl.style.opacity=rnd(.07,.13);setTimeout(()=>{baseEl.style.opacity=.028;setTimeout(f,rnd(50,150))},80)})()}
 if(!reduce)setTimeout(flicker,rnd(2200,6400));
 
 resize();requestAnimationFrame(tick);
