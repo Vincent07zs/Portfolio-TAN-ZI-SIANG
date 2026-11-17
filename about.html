@@ -6,6 +6,34 @@
   <title>About — Tan Zi Siang</title>
   <meta name="description" content="About Tan Zi Siang (Vincent) — Interactive Multimedia Technology graduate path, strengths and career goals.">
   <link rel="stylesheet" href="style.css">
+  <style>
+    .about-portrait {
+      width: 100%;
+      max-width: 380px;
+      margin: 0 auto 40px;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(29,26,18,0.12);
+      background: #e8e2d4;
+    }
+    .about-portrait img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+      aspect-ratio: 1 / 1.15;
+      object-position: center top;
+    }
+    @media (min-width: 900px) {
+      .about-top {
+        display: grid;
+        grid-template-columns: 1fr 1.2fr;
+        gap: 48px;
+        align-items: start;
+      }
+      .about-portrait { margin: 0; max-width: none; }
+    }
+  </style>
 </head>
 <body>
   <header class="site-header">
@@ -31,7 +59,10 @@
     </div>
 
     <section class="section" style="padding-top: 0;">
-      <div class="grid-2">
+      <div class="about-top">
+        <div class="about-portrait">
+          <img src="portrait.jpg" alt="Tan Zi Siang — professional portrait" width="800" height="920">
+        </div>
         <div>
           <h2 style="font-size:22px;font-weight:700;margin-bottom:16px;color:var(--dark);">Introduction</h2>
           <p style="font-size:16px;line-height:1.65;color:var(--text-muted);margin-bottom:20px;">
@@ -41,10 +72,10 @@
             <strong style="color:var(--dark);">Location</strong> — Penang, Malaysia<br>
             <strong style="color:var(--dark);">Languages</strong> — Chinese, Malay, English
           </p>
-        </div>
-        <div class="card">
-          <h3>Currently Learning</h3>
-          <p>Mobile Application Design and Website Design — expanding my toolkit so I can deliver end-to-end digital experiences.</p>
+          <div class="card" style="margin-top:28px;">
+            <h3>Currently Learning</h3>
+            <p>Mobile Application Design and Website Design — expanding my toolkit so I can deliver end-to-end digital experiences.</p>
+          </div>
         </div>
       </div>
 
@@ -80,7 +111,6 @@
       <a href="https://instagram.com/vincent._.zs" target="_blank" rel="noopener">Instagram</a>
     </p>
   </footer>
-
   <script src="main.js"></script>
 </body>
 </html>
