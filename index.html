@@ -226,22 +226,30 @@ fit();addEventListener('resize',fit);addEventListener('load',fit);if(document.fo
   const audio = document.getElementById('bgMusic');
   const btn = document.getElementById('muteBtn');
   if(!audio || !btn) return;
-  audio.volume = 0.35; // moderate volume
-  let started = false;
-  function tryPlay(){
-    if(started) return;
-    audio.play().then(()=>{ started=true; btn.classList.remove('muted'); }).catch(()=>{});
+
+  audio.volume = 0.32;
+  audio.loop = true;
+
+  function setMutedUI(muted){
+    btn.classList.toggle('muted', muted);
+    btn.setAttribute('aria-label', muted ? 'Unmute' : 'Mute');
   }
-  // try after first user interaction
-  ['pointerdown','keydown','touchstart'].forEach(ev=>{
-    window.addEventListener(ev, tryPlay, {once:true, passive:true});
-  });
-  btn.addEventListener('click', ()=>{
+
+  // Start muted. First click on the button (or anywhere) can start playback.
+  setMutedUI(true);
+
+  btn.addEventListener('click', (e)=>{
+    e.stopPropagation();
     if(audio.paused){
-      audio.play().then(()=>{ btn.classList.remove('muted'); started=true; }).catch(()=>{});
+      audio.play().then(()=>{
+        setMutedUI(false);
+      }).catch((err)=>{
+        console.warn('Audio play failed. Make sure nuvole-bianche.mp3 is in the same folder as index.html', err);
+        setMutedUI(true);
+      });
     } else {
       audio.pause();
-      btn.classList.add('muted');
+      setMutedUI(true);
     }
   });
 })();
